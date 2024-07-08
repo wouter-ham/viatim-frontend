@@ -5,8 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "watch": "ng build --watch --configuration development"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +19,7 @@
     "@angular/router": "^18.0.0",
     "@ngxs/router-plugin": "^18.0.0",
     "@ngxs/store": "^18.0.0",
+    "bootstrap": "^5.3.3",
     "class-transformer": "^0.5.1",
     "jwt-decode": "^4.0.0",
     "moment": "^2.30.1",
