@@ -7,7 +7,7 @@ export class User implements IUser {
   public id: string;
 
   @Expose()
-  public username: string;
+  public email: string;
 
   @Expose()
   public firstName: string;

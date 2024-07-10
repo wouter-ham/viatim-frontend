@@ -1,29 +1,35 @@
-<div class="container">
-  <div class="row">
-    <div class="col mt-5">
+<div class='container'>
+  <div class='row'>
+    <div class='col mt-5'>
       <h1>Login</h1>
     </div>
   </div>
-  <app-loading-indicator *ngIf="isBusy"></app-loading-indicator>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="!isBusy">
-    <div class="row mb-2">
-      <div class="col">
-        <div class="form-group required row">
-          <label class="col-2 mr-2" for="username">Gebruikersnaam</label>
-          <input class="col-3" formControlName="username" id="username" />
+  <app-loading-indicator *ngIf='isBusy'></app-loading-indicator>
+  <form [formGroup]='form' (ngSubmit)='onSubmit()' *ngIf='!isBusy'>
+    <div class='row mb-2'>
+      <div class='col'>
+        <div class='form-group required row'>
+          <label class='col-2 mr-2' for='email'>Email</label>
+          <input class='col-3' formControlName='email' id='email' />
         </div>
       </div>
     </div>
-    <div class="row mb-2">
-      <div class="col">
-        <div class="form-group required row">
-          <label class="col-2 mr-2" for="password">Wachtwoord</label>
-          <input class="col-3" type="password" formControlName="password" id="password" />
+    <div class='row mb-2'>
+      <div class='col'>
+        <div class='form-group required row'>
+          <label class='col-2 mr-2' for='password'>Wachtwoord</label>
+          <input class='col-3' type='password' formControlName='password' id='password' />
         </div>
       </div>
     </div>
-    <div class="footer">
-      <button type="submit" class='btn btn-primary' [disabled]="form.invalid">Inloggen</button>
+    <div class='footer'>
+      <button type='submit' class='btn btn-primary' [disabled]='form.invalid'>Inloggen</button>
     </div>
   </form>
+  <div class='row'>
+    <div class='col mt-5'>
+      <a routerLink='/forgot-password'>Wachtwoord vergeten</a>
+    </div>
+  </div>
 </div>
+

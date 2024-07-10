@@ -59,6 +59,12 @@ export class AuthState implements NgxsOnInit {
   ) {}
 
   public ngxsOnInit(ctx: StateContext<AuthStateModel>): void {
+    const token: string = localStorage.getItem('token');
+
+    if (token) {
+      ctx.patchState({ token });
+    }
+
     const state: AuthStateModel = ctx.getState();
     if (!state.user && state.token) {
       const user: User = getUserFromToken(state.token);
@@ -72,6 +78,8 @@ export class AuthState implements NgxsOnInit {
       switchMap((token: string): Observable<void> => {
         const user: User = getUserFromToken(token);
         ctx.patchState({ user, token, role: user.role });
+
+        localStorage.setItem('token', token);
 
         if (!user) {
           return ctx.dispatch([new Navigate(['/login'])]);
@@ -88,6 +96,8 @@ export class AuthState implements NgxsOnInit {
       switchMap((token: string): Observable<string | void> => {
         ctx.patchState({ token });
 
+        localStorage.setItem('token', token);
+
         const state: AuthStateModel = ctx.getState();
         const user: User = AuthState.user(state);
 
@@ -101,13 +111,14 @@ export class AuthState implements NgxsOnInit {
   }
 
   @Action(ResetPassword)
-  public resetPassword(_: StateContext<UsersStateModel>, { user }: ResetPassword): Observable<any> {
-    return this.authService.resetPassword(user);
+  public resetPassword(_: StateContext<UsersStateModel>, { email }: ResetPassword): Observable<any> {
+    return this.authService.resetPassword(email);
   }
 
   @Action(LogoutUser)
   public logoutUser(ctx: StateContext<AuthStateModel>): Observable<any> {
     ctx.patchState({ token: null });
+    localStorage.removeItem('token');
     return this.store.dispatch([new Navigate(['/login'])]);
   }
 }

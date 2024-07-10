@@ -14,8 +14,8 @@ export class LoginComponent {
   public error?: { title: string; message?: string };
 
   public form: FormGroup = new FormGroup({
-    username: new FormControl('', {
-      validators: [Validators.required],
+    email: new FormControl('', {
+      validators: [Validators.required, Validators.email],
     }),
     password: new FormControl('', {
       validators: Validators.required,
@@ -26,12 +26,12 @@ export class LoginComponent {
 
   public async onSubmit(): Promise<void> {
     if (this.form.valid) {
-      const { username, password } = this.form.value;
+      const { email, password } = this.form.value;
       try {
         this.isBusy = true;
 
         this.store
-          .dispatch(new LoginUser(username, password))
+          .dispatch(new LoginUser(email, password))
           .pipe(
             catchError((e) => {
               this.error = {
@@ -41,7 +41,7 @@ export class LoginComponent {
               this.isBusy = false;
               return EMPTY;
             }),
-            tap(() => (this.isBusy = false)),
+            tap((): boolean => (this.isBusy = false)),
           )
           .subscribe();
       } catch (e) {

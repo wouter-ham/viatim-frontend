@@ -1,14 +1,12 @@
-import { Action, NgxsOnInit, Selector, State, StateContext, Store } from '@ngxs/store';
+import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { Navigate } from '@ngxs/router-plugin';
 
 import { UsersStateModel } from './users.state-model';
 import { UsersService } from '../../services';
 
-import { DeleteUser, LoadUsers, OpenUsersList, SaveUser } from './users.actions';
+import { DeleteUser, LoadUsers, SaveUser } from './users.actions';
 import { Observable, of } from 'rxjs';
-import { filter, switchMap, tap } from 'rxjs/operators';
-import { AuthState } from '../auth';
+import { tap } from 'rxjs/operators';
 import { User } from '../../models/user';
 
 @State<UsersStateModel>({
@@ -18,7 +16,7 @@ import { User } from '../../models/user';
   },
 })
 @Injectable({ providedIn: 'root' })
-export class UsersState implements NgxsOnInit {
+export class UsersState {
   @Selector()
   static users(state: UsersStateModel): Array<User> {
     return state.users;
@@ -28,23 +26,6 @@ export class UsersState implements NgxsOnInit {
     private store: Store,
     private usersService: UsersService,
   ) {}
-
-  public ngxsOnInit(ctx: StateContext<UsersStateModel>): void {
-    this.store
-      .select(AuthState.token)
-      .pipe(
-        filter((token: string) => !!token),
-        switchMap(() => this.store.select(AuthState.isAdmin)),
-        filter((isAdmin) => isAdmin),
-        switchMap(() => ctx.dispatch(new LoadUsers())),
-      )
-      .subscribe();
-  }
-
-  @Action(OpenUsersList)
-  public openUsersList(_: StateContext<UsersStateModel>): Observable<any> {
-    return this.store.dispatch(new Navigate([`/dashboard/users`]));
-  }
 
   @Action(LoadUsers)
   public loadUsers(ctx: StateContext<UsersStateModel>): Observable<Array<User>> {

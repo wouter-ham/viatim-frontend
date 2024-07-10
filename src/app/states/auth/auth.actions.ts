@@ -1,5 +1,3 @@
-import { User } from '../../models/user';
-
 export class LoginUser {
   public static readonly type = '[Auth] Login User';
 
@@ -17,7 +15,7 @@ export class RefreshToken {
 
 export class ResetPassword {
   public static readonly type = '[Auth] Reset password';
-  public constructor(public user: User) {}
+  public constructor(public email: string) {}
 }
 
 export class LogoutUser {

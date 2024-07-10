@@ -10,6 +10,8 @@ export class AuthGuard implements CanActivate {
   public canActivate(): any {
     const isAuthenticated: boolean = this.store.selectSnapshot(AuthState.isAuthenticated);
 
+    console.log(isAuthenticated);
+
     if (!isAuthenticated) {
       return this.store.dispatch(new LogoutUser());
     }
