@@ -1,3 +1,4 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -7,6 +8,6 @@ import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [DashboardComponent, UsersComponent, AccountComponent],
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, AsyncPipe, NgIf],
 })
 export class DashboardModule {}

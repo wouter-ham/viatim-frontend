@@ -1,1 +1,37 @@
-<button class="btn btn-danger my-3" (click)="logout()">Uitloggen</button>
+<div class="container mt-3">
+  <div class="row" *ngIf="user$ | async as user">
+    <div class="col-6">
+      <h3>Over mij</h3>
+
+      <table class="table">
+        <tbody>
+          <tr>
+            <th scope="row">Voornaam</th>
+            <td>{{ user.firstName }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Tussenvoegsel</th>
+            <td>{{ user.middleName }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Achternaam</th>
+            <td>{{ user.lastName }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Email adres</th>
+            <td>{{ user.email }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Rol</th>
+            <td>{{ user.role }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-danger my-3" (click)="logout()">Uitloggen</button>
+    </div>
+  </div>
+</div>

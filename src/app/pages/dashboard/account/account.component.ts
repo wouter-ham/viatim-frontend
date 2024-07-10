@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
 
-import { LogoutUser } from '../../../states/auth';
+import { User } from '../../../models/user';
+import { AuthState, LogoutUser } from '../../../states/auth';
 
 @Component({
   selector: 'app-users',
@@ -9,6 +11,8 @@ import { LogoutUser } from '../../../states/auth';
   styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent {
+  public user$: Observable<User> = inject(Store).select(AuthState.user);
+
   public constructor(public readonly store: Store) {}
 
   public logout(): void {
