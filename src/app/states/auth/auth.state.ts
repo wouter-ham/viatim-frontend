@@ -4,7 +4,7 @@ import { Navigate } from '@ngxs/router-plugin';
 import { jwtDecode } from 'jwt-decode';
 import { switchMap } from 'rxjs/operators';
 
-import { LoginUser, LogoutUser, RefreshToken, ResetPassword } from './auth.actions';
+import { LoginUser, LogoutUser, RefreshToken, RegisterUser, ResetPassword } from './auth.actions';
 import { Observable, of } from 'rxjs';
 import { plainToInstance } from 'class-transformer';
 import { User } from '../../models/user';
@@ -75,6 +75,24 @@ export class AuthState implements NgxsOnInit {
   @Action(LoginUser)
   public loginUser(ctx: StateContext<AuthStateModel>, action: LoginUser): Observable<any> {
     return this.authService.signInUser(action.email, action.password).pipe(
+      switchMap((token: string): Observable<void> => {
+        const user: User = getUserFromToken(token);
+        ctx.patchState({ user, token, role: user.role });
+
+        localStorage.setItem('token', token);
+
+        if (!user) {
+          return ctx.dispatch([new Navigate(['/login'])]);
+        }
+
+        return ctx.dispatch([new Navigate([`/dashboard`])]);
+      }),
+    );
+  }
+
+  @Action(RegisterUser)
+  public registerUser(ctx: StateContext<AuthStateModel>, { user }: RegisterUser): Observable<any> {
+    return this.authService.registerUser(user).pipe(
       switchMap((token: string): Observable<void> => {
         const user: User = getUserFromToken(token);
         ctx.patchState({ user, token, role: user.role });

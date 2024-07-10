@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environment';
+import { IUser } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,12 @@ export class AuthService {
   public signInUser(email: string, password: string): Observable<string> {
     return this.http
       .post<{ access_token: string }>(`${environment.apiUrl}/users/login`, { email, password })
+      .pipe(map((data: { access_token: string }) => data.access_token));
+  }
+
+  public registerUser(user: IUser): Observable<string> {
+    return this.http
+      .post<{ access_token: string }>(`${environment.apiUrl}/users/register`, user)
       .pipe(map((data: { access_token: string }) => data.access_token));
   }
 

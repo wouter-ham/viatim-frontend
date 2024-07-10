@@ -10,6 +10,7 @@ import {
 } from './pages';
 import { AuthGuard } from './guards/auth-guard';
 import { AuthComponent } from './pages/auth/auth.component';
+import { RegisterComponent } from './pages/auth/register/register.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
       },
       {
         path: 'forgot-password',

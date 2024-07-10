@@ -8,9 +8,10 @@ import { ComponentsModule } from '../../components/components.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [AuthComponent, LoginComponent, ActivationComponent, ForgotPasswordComponent],
+  declarations: [AuthComponent, LoginComponent, RegisterComponent, ActivationComponent, ForgotPasswordComponent],
   imports: [ComponentsModule, ReactiveFormsModule, NgIf, RouterOutlet, RouterLink],
 })
 export class AuthModule {}

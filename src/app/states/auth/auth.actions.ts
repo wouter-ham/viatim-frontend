@@ -1,3 +1,5 @@
+import { IUser } from '../../interfaces/user';
+
 export class LoginUser {
   public static readonly type = '[Auth] Login User';
 
@@ -5,6 +7,12 @@ export class LoginUser {
     public email: string,
     public password: string,
   ) {}
+}
+
+export class RegisterUser {
+  public static readonly type = '[Auth] Register User';
+
+  public constructor(public user: IUser) {}
 }
 
 export class RefreshToken {

@@ -1,0 +1,69 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col mt-5'>
+      <h1>Registreren</h1>
+    </div>
+  </div>
+  <app-loading-indicator *ngIf='isBusy'></app-loading-indicator>
+  <form [formGroup]='form' (ngSubmit)='onSubmit()' *ngIf='!isBusy'>
+    <div class='row mb-2'>
+      <div class='col'>
+        <div class='form-group required row'>
+          <label class='col-2 mr-2' for='email'>Email</label>
+          <input class='col-3' formControlName='email' id='email' />
+        </div>
+      </div>
+    </div>
+    <div class='row mb-2'>
+      <div class='col'>
+        <div class='form-group required row'>
+          <label class='col-2 mr-2' for='password'>Wachtwoord</label>
+          <input class='col-3' type='password' formControlName='password' id='password' />
+        </div>
+      </div>
+    </div>
+    <div class='row mb-2'>
+      <div class='col'>
+        <div class='form-group required row'>
+          <label class='col-2 mr-2' for='firstName'>Voornaam</label>
+          <input class='col-3' formControlName='firstName' id='firstName' />
+        </div>
+      </div>
+    </div>
+    <div class='row mb-2'>
+      <div class='col'>
+        <div class='form-group row'>
+          <label class='col-2 mr-2' for='middleName'>Tussenvoegsel</label>
+          <input class='col-3' formControlName='middleName' id='middleName' />
+        </div>
+      </div>
+    </div>
+    <div class='row mb-2'>
+      <div class='col'>
+        <div class='form-group required row'>
+          <label class='col-2 mr-2' for='lastName'>Achternaam</label>
+          <input class='col-3' formControlName='lastName' id='lastName' />
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col'>
+        <button type='submit' class='btn btn-primary' [disabled]='form.invalid'>Registreren</button>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col mt-5'>
+        <a routerLink='/login'>Ik wil toch inloggen</a>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col'>
+        <div class="alert alert-danger mt-3" role="alert" *ngIf='error'>
+          <h4 *ngIf='error.title'>{{ error.title }}</h4>
+          <p *ngIf='error.message'>{{ error.message }}</p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+

@@ -2,19 +2,27 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { catchError, EMPTY, tap } from 'rxjs';
-import { LoginUser } from '../../../states/auth';
+import { RegisterUser } from '../../../states/auth';
+import { IUser } from '../../../interfaces/user';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-register',
+  templateUrl: './register.component.html',
 })
-export class LoginComponent {
+export class RegisterComponent {
   public isBusy: boolean = false;
   public error?: { title: string; message?: string };
 
   public form: FormGroup = new FormGroup({
     email: new FormControl('', {
       validators: [Validators.required, Validators.email],
+    }),
+    firstName: new FormControl('', {
+      validators: [Validators.required],
+    }),
+    middleName: new FormControl(''),
+    lastName: new FormControl('', {
+      validators: [Validators.required],
     }),
     password: new FormControl('', {
       validators: Validators.required,
@@ -25,14 +33,16 @@ export class LoginComponent {
 
   public async onSubmit(): Promise<void> {
     if (this.form.valid) {
-      const { email, password } = this.form.value;
       try {
         this.isBusy = true;
 
+        const user: IUser = { ...this.form.value };
+
         this.store
-          .dispatch(new LoginUser(email, password))
+          .dispatch(new RegisterUser(user))
           .pipe(
             catchError((e) => {
+              console.log(e);
               this.error = {
                 title: 'Iets ging verkeerd.',
                 message: e.error.message,
