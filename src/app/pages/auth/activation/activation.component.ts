@@ -1,15 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { Store } from '@ngxs/store';
 import { firstValueFrom } from 'rxjs';
+
 import { UsersService } from '../../../services';
-import { LogoutUser } from '../../../states/auth';
 import { AuthService } from '../../../services/auth.service';
+import { LogoutUser } from '../../../states/auth';
 
 @Component({
-  selector: 'tna-users-activation',
+  selector: 'app-users-activation',
   templateUrl: './activation.component.html',
 })
 export class ActivationComponent implements OnInit {

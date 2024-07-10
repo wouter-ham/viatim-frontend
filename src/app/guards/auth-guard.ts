@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngxs/store';
 import { CanActivate } from '@angular/router';
+import { Store } from '@ngxs/store';
+
 import { AuthState, LogoutUser } from '../states/auth';
 
 @Injectable()

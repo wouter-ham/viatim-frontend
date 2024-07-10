@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-dashboard',

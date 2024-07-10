@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { catchError, EMPTY, tap } from 'rxjs';
-import { RegisterUser } from '../../../states/auth';
+
 import { IUser } from '../../../interfaces/user';
+import { RegisterUser } from '../../../states/auth';
 
 @Component({
   selector: 'app-register',

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Action, NgxsOnInit, Selector, State, StateContext, Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
+import { Action, NgxsOnInit, Selector, State, StateContext, Store } from '@ngxs/store';
+import { plainToInstance } from 'class-transformer';
 import { jwtDecode } from 'jwt-decode';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { LoginUser, LogoutUser, RefreshToken, RegisterUser, ResetPassword } from './auth.actions';
-import { Observable, of } from 'rxjs';
-import { plainToInstance } from 'class-transformer';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
-import { AuthStateModel } from './auth.state-model';
 import { UsersStateModel } from '../users/users.state-model';
+import { LoginUser, LogoutUser, RefreshToken, RegisterUser, ResetPassword } from './auth.actions';
+import { AuthStateModel } from './auth.state-model';
 
 const getUserFromToken = (token: string): User => {
   const decoded = jwtDecode(token) as any;

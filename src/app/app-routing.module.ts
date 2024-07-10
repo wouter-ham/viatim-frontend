@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+import { AuthGuard } from './guards/auth-guard';
 import {
   AccountComponent,
   ActivationComponent,
@@ -8,7 +10,6 @@ import {
   LoginComponent,
   UsersComponent,
 } from './pages';
-import { AuthGuard } from './guards/auth-guard';
 import { AuthComponent } from './pages/auth/auth.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 

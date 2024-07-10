@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
+
 import { LogoutUser } from '../../../states/auth';
 
 @Component({

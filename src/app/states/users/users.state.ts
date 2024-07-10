@@ -1,13 +1,12 @@
-import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-
-import { UsersStateModel } from './users.state-model';
-import { UsersService } from '../../services';
-
-import { DeleteUser, LoadUsers, SaveUser } from './users.actions';
+import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
 import { User } from '../../models/user';
+import { UsersService } from '../../services';
+import { DeleteUser, LoadUsers, SaveUser } from './users.actions';
+import { UsersStateModel } from './users.state-model';
 
 @State<UsersStateModel>({
   name: 'users',
@@ -37,11 +36,13 @@ export class UsersState {
   }
 
   @Action(DeleteUser)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public deleteUser(ctx: StateContext<UsersStateModel>, { user }: DeleteUser): Observable<UsersStateModel> {
     return of(null);
   }
 
   @Action(SaveUser)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public saveUser(ctx: StateContext<UsersStateModel>, { user }: SaveUser): Observable<any> {
     return of(null);
   }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
+import { Store } from '@ngxs/store';
+
 import { ResetPassword } from '../../../states/auth';
 
 @Component({
-  selector: 'tna-users-forgot-password',
+  selector: 'app-users-forgot-password',
   templateUrl: './forgot-password.component.html',
 })
 export class ForgotPasswordComponent {
