@@ -4,15 +4,15 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { v4 } from 'uuid';
 
-import { IPost } from '../../../interfaces/post';
-import { Post } from '../../../models/post';
-import { CreatePost, LoadPosts, PostsState } from '../../../states/posts';
+import { IPost } from '../../../../interfaces/post';
+import { Post } from '../../../../models/post';
+import { CreatePost, LoadPosts, PostsState } from '../../../../states/posts';
 
 @Component({
-  selector: 'app-posts',
-  templateUrl: './posts.component.html',
+  selector: 'app-post-overview',
+  templateUrl: './post-overview.component.html',
 })
-export class PostsComponent {
+export class PostOverviewComponent {
   public posts$: Observable<Post[]> = inject(Store).select(PostsState.posts);
 
   public form: FormGroup = new FormGroup({

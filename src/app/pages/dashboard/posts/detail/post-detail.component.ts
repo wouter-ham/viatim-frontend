@@ -4,15 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 
-import { IPost } from '../../../interfaces/post';
-import { Post } from '../../../models/post';
-import { CreatePost, LoadPost, PostsState } from '../../../states/posts';
+import { IPost } from '../../../../interfaces/post';
+import { Post } from '../../../../models/post';
+import { CreatePost, LoadPost, PostsState } from '../../../../states/posts';
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.component.html',
+  selector: 'app-post-detail',
+  templateUrl: './post-detail.component.html',
 })
-export class PostComponent implements OnInit, OnDestroy {
+export class PostDetailComponent implements OnInit, OnDestroy {
   public post$: Observable<Post> = inject(Store).select(PostsState.post);
 
   public form: FormGroup = new FormGroup({

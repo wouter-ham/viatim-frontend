@@ -8,11 +8,11 @@ import {
   DashboardComponent,
   ForgotPasswordComponent,
   LoginComponent,
-  PostsComponent,
+  PostOverviewComponent,
 } from './pages';
 import { AuthComponent } from './pages/auth/auth.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
-import { PostComponent } from './pages/dashboard/post/post.component';
+import { PostDetailComponent } from './pages/dashboard/posts/detail/post-detail.component';
 
 const routes: Routes = [
   {
@@ -32,13 +32,11 @@ const routes: Routes = [
     children: [
       {
         path: 'posts',
-        component: PostsComponent,
-        children: [
-          {
-            path: ':id',
-            component: PostComponent,
-          },
-        ],
+        component: PostOverviewComponent,
+      },
+      {
+        path: 'posts/:id',
+        component: PostDetailComponent,
       },
       {
         path: 'account',
