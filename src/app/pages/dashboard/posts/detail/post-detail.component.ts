@@ -1,12 +1,13 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 
 import { IPost } from '../../../../interfaces/post';
 import { Post } from '../../../../models/post';
-import { CreatePost, LoadPost, PostsState } from '../../../../states/posts';
+import { LoadPost, PostsState, UpdatePost } from '../../../../states/posts';
 
 @Component({
   selector: 'app-post-detail',
@@ -40,9 +41,8 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   public submit(): void {
     const post: IPost = { ...this.form.value };
 
-    console.log(post);
-
-    this.store.dispatch(new CreatePost(post));
+    this.store.dispatch(new UpdatePost(post));
+    this.store.dispatch(new Navigate(['/dashboard/posts']));
   }
 
   public ngOnDestroy(): void {

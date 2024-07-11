@@ -62,7 +62,7 @@ export class PostsState {
     return this.postsService.updatePost(post).pipe(
       tap((post: Post) => {
         const posts: Post[] = ctx.getState().posts;
-        posts[posts.indexOf(post)] = post;
+        posts[posts.findIndex((p: Post): boolean => p.id === post.id)] = post;
         return ctx.patchState({ posts });
       }),
     );
