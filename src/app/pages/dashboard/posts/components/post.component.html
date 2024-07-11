@@ -1,0 +1,19 @@
+<div class="row mt-3" *ngIf="user$ | async as user">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{{ post.title }}</h4>
+        <p class="card-text">{{ post.content }}</p>
+        <p class="card-text">
+          Gepost door:
+          <b>{{ post.user.fullName }}</b>
+        </p>
+        <small class="text-muted">{{ post.created | date: 'dd-MM-YYYY HH:mm' }}</small>
+      </div>
+      <div class="actions" *ngIf="user.id === post.userId || user.role === 'admin'">
+        <button type="button" class="btn btn-success" routerLink="/dashboard/posts/{{ post.id }}}">Bewerken</button>
+        <button type="button" class="btn btn-danger">Verwijderen</button>
+      </div>
+    </div>
+  </div>
+</div>

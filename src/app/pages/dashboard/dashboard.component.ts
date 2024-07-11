@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 
 @Component({
@@ -8,8 +7,4 @@ import { Store } from '@ngxs/store';
 })
 export class DashboardComponent {
   constructor(public readonly store: Store) {}
-
-  public navigate(to: string): void {
-    this.store.dispatch(new Navigate([to]));
-  }
 }

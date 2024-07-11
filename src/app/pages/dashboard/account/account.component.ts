@@ -6,7 +6,7 @@ import { User } from '../../../models/user';
 import { AuthState, LogoutUser } from '../../../states/auth';
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
 })

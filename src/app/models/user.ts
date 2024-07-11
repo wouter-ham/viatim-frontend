@@ -23,10 +23,10 @@ export class User implements IUser {
   public role: string;
 
   @Expose()
-  public modified: Date;
+  public created: Date;
 
   @Expose()
-  public created: Date;
+  public updated: Date;
 
   @Expose()
   public deleted: Date;

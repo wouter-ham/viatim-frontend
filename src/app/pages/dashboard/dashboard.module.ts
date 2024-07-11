@@ -1,13 +1,15 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, DatePipe, NgForOf, NgIf } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 import { AccountComponent } from './account/account.component';
 import { DashboardComponent } from './dashboard.component';
-import { UsersComponent } from './users/users.component';
+import { PostComponent } from './posts/components/post.component';
+import { PostsComponent } from './posts/posts.component';
 
 @NgModule({
-  declarations: [DashboardComponent, UsersComponent, AccountComponent],
-  imports: [RouterOutlet, AsyncPipe, NgIf],
+  declarations: [DashboardComponent, PostsComponent, PostComponent, AccountComponent],
+  imports: [RouterOutlet, AsyncPipe, NgIf, NgForOf, RouterLink, ReactiveFormsModule, DatePipe],
 })
 export class DashboardModule {}

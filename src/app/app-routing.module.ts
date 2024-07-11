@@ -8,7 +8,7 @@ import {
   DashboardComponent,
   ForgotPasswordComponent,
   LoginComponent,
-  UsersComponent,
+  PostsComponent,
 } from './pages';
 import { AuthComponent } from './pages/auth/auth.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    redirectTo: '/dashboard/users',
+    redirectTo: '/dashboard/posts',
     pathMatch: 'full',
   },
   {
@@ -30,8 +30,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'users',
-        component: UsersComponent,
+        path: 'posts',
+        component: PostsComponent,
         canActivate: [AuthGuard],
       },
       {

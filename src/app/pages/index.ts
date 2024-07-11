@@ -5,4 +5,4 @@ export * from './auth/login/login.component';
 export * from './dashboard/account/account.component';
 export * from './dashboard/dashboard.component';
 export * from './dashboard/dashboard.module';
-export * from './dashboard/users/users.component';
+export * from './dashboard/posts/posts.component';

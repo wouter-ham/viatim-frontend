@@ -8,7 +8,6 @@ import { switchMap } from 'rxjs/operators';
 
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
-import { UsersStateModel } from '../users/users.state-model';
 import { LoginUser, LogoutUser, RefreshToken, RegisterUser, ResetPassword } from './auth.actions';
 import { AuthStateModel } from './auth.state-model';
 
@@ -129,7 +128,7 @@ export class AuthState implements NgxsOnInit {
   }
 
   @Action(ResetPassword)
-  public resetPassword(_: StateContext<UsersStateModel>, { email }: ResetPassword): Observable<any> {
+  public resetPassword(_: StateContext<AuthStateModel>, { email }: ResetPassword): Observable<any> {
     return this.authService.resetPassword(email);
   }
 
