@@ -5,11 +5,12 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
 import { AccountComponent } from './account/account.component';
 import { DashboardComponent } from './dashboard.component';
-import { PostComponent } from './posts/components/post.component';
+import { PostComponent } from './post/post.component';
+import { PostListItemComponent } from './posts/components/post-list-item.component';
 import { PostsComponent } from './posts/posts.component';
 
 @NgModule({
-  declarations: [DashboardComponent, PostsComponent, PostComponent, AccountComponent],
+  declarations: [DashboardComponent, PostsComponent, PostComponent, PostListItemComponent, AccountComponent],
   imports: [RouterOutlet, AsyncPipe, NgIf, NgForOf, RouterLink, ReactiveFormsModule, DatePipe],
 })
 export class DashboardModule {}

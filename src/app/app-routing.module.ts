@@ -12,6 +12,7 @@ import {
 } from './pages';
 import { AuthComponent } from './pages/auth/auth.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
+import { PostComponent } from './pages/dashboard/post/post.component';
 
 const routes: Routes = [
   {
@@ -32,12 +33,16 @@ const routes: Routes = [
       {
         path: 'posts',
         component: PostsComponent,
-        canActivate: [AuthGuard],
+        children: [
+          {
+            path: ':id',
+            component: PostComponent,
+          },
+        ],
       },
       {
         path: 'account',
         component: AccountComponent,
-        canActivate: [AuthGuard],
       },
     ],
   },

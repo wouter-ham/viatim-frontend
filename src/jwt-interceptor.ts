@@ -22,8 +22,8 @@ export class JwtInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((error) => {
-        if (error instanceof HttpErrorResponse && error.status === 401) {
-          return this.handle401Error(request, next);
+        if (error instanceof HttpErrorResponse && error.status === 403) {
+          return this.handle403Error(request, next);
         }
 
         if (error instanceof HttpErrorResponse) {
@@ -47,7 +47,7 @@ export class JwtInterceptor implements HttpInterceptor {
     console.error(`${error.error?.message}`, `${error.status}`);
   }
 
-  private handle401Error(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
+  private handle403Error(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);

@@ -28,8 +28,8 @@ export class PostsComponent {
   public submit(): void {
     const post: IPost = { ...this.form.value };
 
-    console.log(post);
-
     this.store.dispatch(new CreatePost(post));
+
+    this.form.setValue({ id: v4(), title: null, content: null });
   }
 }

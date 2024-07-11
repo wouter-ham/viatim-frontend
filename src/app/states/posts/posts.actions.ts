@@ -4,6 +4,11 @@ export class LoadPosts {
   public static readonly type = '[Posts] Load posts';
 }
 
+export class LoadPost {
+  public static readonly type = '[Posts] Load post';
+  public constructor(public id: string) {}
+}
+
 export class CreatePost {
   public static readonly type = '[Posts] Create a post';
   public constructor(public post: IPost) {}

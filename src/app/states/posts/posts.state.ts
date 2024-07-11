@@ -5,17 +5,23 @@ import { tap } from 'rxjs/operators';
 
 import { Post } from '../../models/post';
 import { PostsService } from '../../services/posts.service';
-import { CreatePost, DeletePost, LoadPosts, UpdatePost } from './posts.actions';
+import { CreatePost, DeletePost, LoadPost, LoadPosts, UpdatePost } from './posts.actions';
 import { PostsStateModel } from './posts.state-model';
 
 @State<PostsStateModel>({
   name: 'posts',
   defaults: {
+    post: null,
     posts: [],
   },
 })
 @Injectable({ providedIn: 'root' })
 export class PostsState {
+  @Selector()
+  static post(state: PostsStateModel): Post {
+    return state.post;
+  }
+
   @Selector()
   static posts(state: PostsStateModel): Post[] {
     return state.posts;
@@ -23,13 +29,19 @@ export class PostsState {
 
   public constructor(private postsService: PostsService) {}
 
+  @Action(LoadPost)
+  public loadPost(ctx: StateContext<PostsStateModel>, { id }: LoadPost): Observable<Post> {
+    return this.postsService.getPostById(id).pipe(
+      tap((post: Post) => {
+        return ctx.patchState({ post });
+      }),
+    );
+  }
+
   @Action(LoadPosts)
   public loadPosts(ctx: StateContext<PostsStateModel>): Observable<Post[]> {
     return this.postsService.getPosts().pipe(
       tap((posts: Post[]) => {
-        console.log(posts);
-        console.log(posts[0]);
-        console.log(typeof posts);
         return ctx.patchState({ posts });
       }),
     );
@@ -61,11 +73,9 @@ export class PostsState {
     return this.postsService.deletePost(post.id).pipe(
       tap(() => {
         const posts: Post[] = [...ctx.getState().posts];
+        const index: number = posts.findIndex((p: Post): boolean => p.id === post.id);
         return ctx.patchState({
-          posts: posts.slice(
-            posts.findIndex((p: Post) => p.id === post.id),
-            1,
-          ),
+          posts: posts.filter((_: Post, i: number): boolean => i !== index),
         });
       }),
     );
