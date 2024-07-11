@@ -1,21 +1,27 @@
-<form class="form" [formGroup]="activationForm" (ngSubmit)="onSubmit()">
-  <div class="header">Wachtwoord instellen</div>
-  <div class="body">
-    <div class="form-group">
-      <label>Wachtwoord</label>
-      <input type="password" class="form-control" formControlName="password" placeholder="Wachtwoord" />
-    </div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6">
+      <form class="form" [formGroup]="activationForm" (ngSubmit)="onSubmit()">
+        <div class="header mb-3">Wachtwoord instellen</div>
+        <div class="body">
+          <div class="form-group mb-4">
+            <label>Wachtwoord</label>
+            <input type="password" class="form-control" formControlName="password" placeholder="Wachtwoord" />
+          </div>
 
-    <div class="form-group">
-      <label>Wachtwoord (nogmaals)</label>
-      <input type="password" class="form-control" formControlName="repeatPassword" placeholder="Wachtwoord" />
+          <div class="form-group mb-4">
+            <label>Wachtwoord (herhaal)</label>
+            <input type="password" class="form-control" formControlName="repeatPassword" placeholder="Wachtwoord" />
+          </div>
+        </div>
+
+        <div class="footer">
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="activationForm.invalid || isBusy">
+            <span *ngIf="!isBusy" class="text">Wachtwoord instellen</span>
+            <span *ngIf="isBusy" class="loader"><img src="assets/img/loader-white.svg" /></span>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-
-  <div class="footer">
-    <button type="submit" class="btn btn-primary btn-block" [disabled]="activationForm.invalid || isBusy">
-      <span *ngIf="!isBusy" class="text">Wachtwoord instellen</span>
-      <span *ngIf="isBusy" class="loader"><img src="assets/img/loader-white.svg" /></span>
-    </button>
-  </div>
-</form>
+</div>

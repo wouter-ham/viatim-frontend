@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { firstValueFrom } from 'rxjs';
 
@@ -13,21 +14,15 @@ import { LogoutUser } from '../../../states/auth';
   templateUrl: './activation.component.html',
 })
 export class ActivationComponent implements OnInit {
-  @Output()
-  public activate = new EventEmitter();
-
-  @Output()
-  public activationError = new EventEmitter();
-
   public isBusy = false;
+  public error?: { title: string; message?: string };
   public activationForm: FormGroup = new FormGroup({
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    repeatPassword: new FormControl('', [Validators.required, Validators.minLength(6), this.passwordsMatch()]),
+    password: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    repeatPassword: new FormControl('', [Validators.required, Validators.minLength(4), this.passwordsMatch()]),
   });
 
   public constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private store: Store,
     private usersService: UsersService,
     private authService: AuthService,
@@ -60,17 +55,23 @@ export class ActivationComponent implements OnInit {
   }
 
   public async onSubmit(): Promise<void> {
+    if (!this.activationForm.valid) {
+      return;
+    }
+
     try {
       this.isBusy = true;
-      const hash = this.route.snapshot.paramMap.get('hash');
+      const hash: string = this.route.snapshot.paramMap.get('hash');
       const password = this.activationForm.value.password;
-      const result = await firstValueFrom(this.authService.activateUser(hash, password));
-      this.activate.emit(result);
-      await this.router.navigate(['/login']);
+      await firstValueFrom(this.authService.activateUser(hash, password));
+      this.store.dispatch(new Navigate(['/login']));
     } catch (e) {
-      this.activationError.emit(e);
+      this.error = { title: 'Iets ging verkeerd.', message: e.error.message };
+
+      setTimeout((): null => (this.error = null), 5000);
     } finally {
       this.isBusy = false;
+      this.error = null;
     }
   }
 }

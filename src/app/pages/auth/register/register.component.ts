@@ -33,33 +33,35 @@ export class RegisterComponent {
   constructor(private store: Store) {}
 
   public async onSubmit(): Promise<void> {
-    if (this.form.valid) {
-      try {
-        this.isBusy = true;
+    if (!this.form.valid) {
+      return;
+    }
 
-        const user: IUser = { ...this.form.value };
+    try {
+      this.isBusy = true;
 
-        this.store
-          .dispatch(new RegisterUser(user))
-          .pipe(
-            catchError((e) => {
-              console.log(e);
-              this.error = {
-                title: 'Iets ging verkeerd.',
-                message: e.error.message,
-              };
-              this.isBusy = false;
-              return EMPTY;
-            }),
-            tap((): boolean => (this.isBusy = false)),
-          )
-          .subscribe();
-      } catch (e) {
-        this.error = {
-          title: 'Iets ging verkeerd.',
-          message: e.error.message,
-        };
-      }
+      const user: IUser = { ...this.form.value };
+
+      this.store
+        .dispatch(new RegisterUser(user))
+        .pipe(
+          catchError((e) => {
+            console.log(e);
+            this.error = {
+              title: 'Iets ging verkeerd.',
+              message: e.error.message,
+            };
+            this.isBusy = false;
+            return EMPTY;
+          }),
+          tap((): boolean => (this.isBusy = false)),
+        )
+        .subscribe();
+    } catch (e) {
+      this.error = {
+        title: 'Iets ging verkeerd.',
+        message: e.error.message,
+      };
     }
   }
 }

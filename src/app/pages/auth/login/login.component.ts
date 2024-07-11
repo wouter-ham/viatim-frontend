@@ -25,31 +25,33 @@ export class LoginComponent {
   constructor(private store: Store) {}
 
   public async onSubmit(): Promise<void> {
-    if (this.form.valid) {
-      const { email, password } = this.form.value;
-      try {
-        this.isBusy = true;
+    if (!this.form.valid) {
+      return;
+    }
 
-        this.store
-          .dispatch(new LoginUser(email, password))
-          .pipe(
-            catchError((e) => {
-              this.error = {
-                title: 'Iets ging verkeerd.',
-                message: e.error.message,
-              };
-              this.isBusy = false;
-              return EMPTY;
-            }),
-            tap((): boolean => (this.isBusy = false)),
-          )
-          .subscribe();
-      } catch (e) {
-        this.error = {
-          title: 'Iets ging verkeerd.',
-          message: e.error.message,
-        };
-      }
+    const { email, password } = this.form.value;
+    try {
+      this.isBusy = true;
+
+      this.store
+        .dispatch(new LoginUser(email, password))
+        .pipe(
+          catchError((e) => {
+            this.error = {
+              title: 'Iets ging verkeerd.',
+              message: e.error.message,
+            };
+            this.isBusy = false;
+            return EMPTY;
+          }),
+          tap((): boolean => (this.isBusy = false)),
+        )
+        .subscribe();
+    } catch (e) {
+      this.error = {
+        title: 'Iets ging verkeerd.',
+        message: e.error.message,
+      };
     }
   }
 }

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
-import { Observable, Subscription } from 'rxjs';
+import { catchError, EMPTY, Observable, Subscription, tap } from 'rxjs';
 
 import { IPost } from '../../../../interfaces/post';
 import { Post } from '../../../../models/post';
@@ -14,6 +14,9 @@ import { LoadPost, PostsState, UpdatePost } from '../../../../states/posts';
   templateUrl: './post-detail.component.html',
 })
 export class PostDetailComponent implements OnInit, OnDestroy {
+  public isBusy: boolean = false;
+  public error?: { title: string; message?: string };
+
   public post$: Observable<Post> = inject(Store).select(PostsState.post);
 
   public form: FormGroup = new FormGroup({
@@ -28,7 +31,6 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     public readonly store: Store,
     private router: ActivatedRoute,
   ) {
-    console.log(this.router.snapshot.paramMap.get('id'));
     this.store.dispatch(new LoadPost(this.router.snapshot.paramMap.get('id')));
   }
 
@@ -39,9 +41,36 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   }
 
   public submit(): void {
-    const post: IPost = { ...this.form.value };
+    if (!this.form.valid) {
+      return;
+    }
 
-    this.store.dispatch(new UpdatePost(post));
+    try {
+      this.isBusy = true;
+
+      const post: IPost = { ...this.form.value };
+
+      this.store
+        .dispatch(new UpdatePost(post))
+        .pipe(
+          catchError((e) => {
+            this.error = {
+              title: 'Iets ging verkeerd.',
+              message: e.error.message,
+            };
+            this.isBusy = false;
+            return EMPTY;
+          }),
+          tap((): boolean => (this.isBusy = false)),
+        )
+        .subscribe();
+    } catch (e) {
+      this.error = {
+        title: 'Iets ging verkeerd.',
+        message: e.error.message,
+      };
+    }
+
     this.store.dispatch(new Navigate(['/dashboard/posts']));
   }
 
